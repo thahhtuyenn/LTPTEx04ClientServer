@@ -20,8 +20,33 @@ public class DepartmentTest {
         Department department = new Department();
         department.setName("IT");
         department.setAdministrator(1);
-        department.setBudget(1000000);
-        department.setStartDate(LocalDateTime.now());
+        department.setBudget(4500000);
+        department.setStartDate(LocalDateTime.of(2022, 1, 8, 0, 0, 0));
         System.out.println(departmentDao.addDepartment(department));
+    }
+    @Test
+    public void testUpdateDepartment() {
+        Department department = new Department();
+        department.setId(1);
+        department.setName("IT");
+        department.setAdministrator(5);
+        department.setBudget(500000);
+        department.setStartDate(LocalDateTime.of(2021, 1, 1, 0, 0, 0));
+        System.out.println(departmentDao.updateDepartment(department));
+    }
+
+    @Test
+    public void testDeleteDepartment() {
+        System.out.println(departmentDao.deleteDepartment(1));
+    }
+
+    @Test
+    public void testGetDepartment() {
+        System.out.println(departmentDao.getDepartment(2));
+    }
+
+    @Test
+    public void testGetAllDepartments() {
+        departmentDao.getAllDepartments().forEach(System.out::println);
     }
 }

@@ -21,21 +21,43 @@ public class DepartmentDaoImpl extends AppUtils implements DepartmentDao {
 
     @Override
     public boolean updateDepartment(Department department) {
-        return false;
+        try (var em = getEntityManager()){
+            Department d = em.find(Department.class, department.getId());
+            if(d != null){
+                em.getTransaction().begin();
+                em.merge(department); // update
+                em.getTransaction().commit();
+                return true;
+            }
+            return false;
+        }
     }
 
     @Override
-    public boolean deleteDepartment(String departmentId) {
-        return false;
+    public boolean deleteDepartment(int departmentId) {
+        try (var em = getEntityManager()){
+            Department d = em.find(Department.class, departmentId);
+            if(d != null){
+                em.getTransaction().begin();
+                em.remove(d);
+                em.getTransaction().commit();
+                return true;
+            }
+            return false;
+        }
     }
 
     @Override
-    public Department getDepartment() {
-        return null;
+    public Department getDepartment(int departmentId) {
+        try (var em = getEntityManager()){
+            return em.find(Department.class, departmentId);
+        }
     }
 
     @Override
     public List<Department> getAllDepartments() {
-        return null;
+        try (var em = getEntityManager()){
+            return em.createQuery("SELECT d FROM Department d", Department.class).getResultList();
+        }
     }
 }
