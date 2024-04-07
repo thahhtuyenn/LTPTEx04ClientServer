@@ -23,4 +23,11 @@ public class Department {
     private int administrator;
     private double budget;
     private LocalDateTime startDate;
+
+    public Department(String name, int administrator, double budget, LocalDateTime startDate) {
+        this.name = name;
+        this.administrator = administrator;
+        this.budget = budget;
+        this.startDate = startDate;
+    }
 }
